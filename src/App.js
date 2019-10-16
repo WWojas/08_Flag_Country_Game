@@ -7,32 +7,30 @@ import main_bg from './img/main_bg.jpg';
 const GlobalStyle = createGlobalStyle`
   body {
    background-image: url(${main_bg});
-       background-position: center;
+    background-position: center;
     width: 100vw;
     margin: 0 auto;
     background-repeat: no-repeat;
   };
   
-  span {
-  color: whitesmoke;
-  }
+
 `;
 
 
 function App() {
-  return (
+    return (
 
-    <div className="App">
-        <GlobalStyle />
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component = {Homepage} />
-            <Route component={Error} />
-              </Switch>
-        </BrowserRouter>
-    </div>
+        <div className="App">
+            <GlobalStyle />
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component = {Homepage} />
+                    <Route component={Error} />
+                </Switch>
+            </BrowserRouter>
+        </div>
 
-  );
+    );
 }
 
 export default App;

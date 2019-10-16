@@ -64,7 +64,7 @@ const CountryImgWrapper = styled.div`
     img { 
     height: 40vh;
     margin: 0 auto;
-     width: 100vw;
+     width: 90vw;
      padding: 10px;
      }
      
@@ -94,33 +94,38 @@ class Homepage extends Component {
         }};
 
 
-        generateRandomCity = () => {
-            let num = Math.floor(Math.random() * countriesJSON.length +1);
-            this.setState({
-                randomCountry: countriesJSON[num].name
-            });
-        };
+    generateRandomCity = () => {
 
-    componentDidUpdate(prevProps, prevState) {
-       this.fetchCityInfo();
+        let num = Math.floor(Math.random() * countriesJSON.length);
+        this.setState({
+            randomCountry: countriesJSON[num].name
+        });
+    };
+
+    componentDidUpdate() {
+        this.fetchCountryInfo();
     }
 
-    fetchCityInfo = () => {
 
-            fetch(`https://restcountries.eu/rest/v2/name/${this.state.randomCountry}`)
-                .then( res => res.json())
-                .then( response =>
-                   this.setState ({
-                       countryFlag: response[0].flag,
-                       countryCapital: response[0].capital,
-                       countryRegion: response[0].region,
-                       countryCurrency: response[0].currency,
-                       countryPopulation: response[0].population,
-                       countryTimezone: response[0].timezones,
-                       isCountryWrapperVisible: true
-                   } )
-                );
-        };
+    fetchCountryInfo = () => {
+
+        fetch(`https://restcountries.eu/rest/v2/name/${this.state.randomCountry}`)
+            .then(res => res.json())
+            .then(response =>
+                this.setState({
+                    countryFlag: response[0].flag,
+                    countryCapital: response[0].capital,
+                    countryRegion: response[0].region,
+                    countryCurrency: response[0].currency,
+                    countryPopulation: response[0].population,
+                    countryTimezone: response[0].timezones,
+                    isCountryWrapperVisible: true
+                })
+            );
+
+        console.log(this.state.countryRegion)
+
+    };
 
 
     render() {
@@ -133,24 +138,24 @@ class Homepage extends Component {
 
 
                     {this.state.isCountryWrapperVisible && (
-                       <CountryWrapper>
+                        <CountryWrapper>
 
-                           <CountryImgWrapper>
-                        <img src={this.state.countryFlag} alt='flag image'/>
-                           </CountryImgWrapper>
+                            <CountryImgWrapper>
+                                <img src={this.state.countryFlag} alt='flag'/>
+                            </CountryImgWrapper>
 
-                           <CountryDetailsWrapper>
-                            <Paragraph>  Name: {this.state.randomCountry} </Paragraph>
-                            <Paragraph>  Capital: {this.state.countryCapital} </Paragraph>
-                            <Paragraph>  Region: {this.state.countryRegion} </Paragraph>
-                            <Paragraph>  Population: {this.state.countryPopulation} </Paragraph>
-                           <Paragraph> Time Zone: </Paragraph>
-                           { this.state.countryTimezone.map( element => {
-                               return (
-                               <Paragraph as='span' key={element}>   {element};  </Paragraph>
-                               )
-                           })}
-                           </CountryDetailsWrapper>
+                            <CountryDetailsWrapper>
+                                <Paragraph>  Name: {this.state.randomCountry} </Paragraph>
+                                <Paragraph>  Capital: {this.state.countryCapital} </Paragraph>
+                                <Paragraph>  Region: {this.state.countryRegion} </Paragraph>
+                                <Paragraph>  Population: {this.state.countryPopulation} </Paragraph>
+                                <Paragraph> Time Zone: </Paragraph>
+                                { this.state.countryTimezone.map( element => {
+                                    return (
+                                        <Paragraph as='span' key={element}>   {element};  </Paragraph>
+                                    )
+                                })}
+                            </CountryDetailsWrapper>
 
                         </CountryWrapper>
                     ) }
