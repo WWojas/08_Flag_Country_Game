@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Homepage from './components/Homepage';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+   background-image: linear-gradient(to right top, #f6f6f6, #e2eeff, #b6ecff, #74ecff, #12ebe9);
+  }
+`;
+
 
 function App() {
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component = {Homepage} />
+            <Route component={Error} />
+              </Switch>
+        </BrowserRouter>
     </div>
+
   );
 }
 
