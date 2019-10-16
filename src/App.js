@@ -9,8 +9,7 @@ const GlobalStyle = createGlobalStyle`
    background-image: url(${main_bg});
        background-position: center;
     width: 100vw;
-    height: 100vh;
-    background-size: cover;
+    margin: 0 auto;
     background-repeat: no-repeat;
   };
   

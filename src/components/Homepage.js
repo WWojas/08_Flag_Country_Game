@@ -56,11 +56,14 @@ const CountryWrapper = styled.div`
 
 const CountryDetailsWrapper = styled.div`
     margin: 10px;
+    text-align: center;
 `;
 
 const CountryImgWrapper = styled.div`
     
     img { 
+    height: 40vh;
+    margin: 0 auto;
      width: 100vw;
      padding: 10px;
      }
