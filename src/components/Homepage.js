@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 import countriesJSON from './countries.json';
-import earth_icon from '../img/earth-icon.png';
 
 const Container = styled.div`
      max-width: 1200px;
@@ -11,16 +10,17 @@ const Wrapper = styled.div`
         display: flex;
         flex-direction: column;
      height: 100vh;
-     justify-content: center;
+         justify-content: center;
      align-items: center;
+    
      `;
 
 const Button = styled.button`
-  background: transparent;
+  background: whitesmoke;
   border-radius: 3px;
   height: 5vh;
   width: 20vw;
-  border: 2px solid palevioletred;
+  border: 2px solid orange;
   color: ${props => (props.primary ? 'palevioletred' : 'blue')};
   margin: 0 1em;
   padding: 0.25em 1em;
@@ -34,41 +34,13 @@ const Text = styled.h1`
   font-size: calc(3vw + 10px);
   font-weight: bold;
   text-align: center;
+  color: whitesmoke;
  
 `;
 
-
-const rotate = keyframes`
- 0% {
-    -webkit-transform: rotate(0);
-            transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@keyframes rotate-center {
-  0% {
-    -webkit-transform: rotate(0);
-            transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-`;
-
-const EarthImg = styled.img`
-background-image: url(${earth_icon});
-background-position: center;
-background-size: contain;
- background-repeat: no-repeat;
-  height: 30vh;
-  width: 40vw;
- 
+const Paragraph = styled.p`
+  color: whitesmoke;
+  font-size: calc(1vw + 10px);
 `;
 
 
@@ -76,8 +48,31 @@ const CountryWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+    
+    @media (min-width: 600px) {
+     flex-direction: row;
+     }
 `;
+
+const CountryDetailsWrapper = styled.div`
+    margin: 10px;
+`;
+
+const CountryImgWrapper = styled.div`
+    
+    img { 
+     width: 100vw;
+     padding: 10px;
+     }
+     
+     @media (min-width: 596px) {
+    img {
+     width: 50vw;
+    height: 30vh;
+    }
+    }
+`;
+
 
 class Homepage extends Component {
     constructor(props) {
@@ -97,7 +92,7 @@ class Homepage extends Component {
 
 
         generateRandomCity = () => {
-            let num = Math.floor(Math.random() * countriesJSON.length -1);
+            let num = Math.floor(Math.random() * countriesJSON.length +1);
             this.setState({
                 randomCountry: countriesJSON[num].name
             });
@@ -121,7 +116,7 @@ class Homepage extends Component {
                        countryTimezone: response[0].timezones,
                        isCountryWrapperVisible: true
                    } )
-                )
+                );
         };
 
 
@@ -130,19 +125,30 @@ class Homepage extends Component {
 
             <Container>
                 <Wrapper>
-                    <EarthImg />
                     <Text> Test Your Knowledge of Flags </Text>
                     <Button primary onClick={this.generateRandomCity}> HIT ME! </Button>
 
+
                     {this.state.isCountryWrapperVisible && (
                        <CountryWrapper>
-                        {/*<CountryWrapper style = {{ backgroundImage: `url(${this.state.isCountryWrapperVisible ? `${this.state.countryFlag}` : " "})` }} >*/}
-                        <img src={this.state.countryFlag} style={{ height: '40vh', width: '90vw', padding: '10px'}} alt='flag image'/>
-                            <p> Country Name: {this.state.randomCountry} </p>
-                            <p> Country Capital: {this.state.countryCapital} </p>
-                            <p> Country Region: {this.state.countryRegion} </p>
-                            <p> Country Population: {this.state.countryPopulation} </p>
-                            <p> Country Time Zones: {this.state.countryTimezone} </p>
+
+                           <CountryImgWrapper>
+                        <img src={this.state.countryFlag} alt='flag image'/>
+                           </CountryImgWrapper>
+
+                           <CountryDetailsWrapper>
+                            <Paragraph>  Name: {this.state.randomCountry} </Paragraph>
+                            <Paragraph>  Capital: {this.state.countryCapital} </Paragraph>
+                            <Paragraph>  Region: {this.state.countryRegion} </Paragraph>
+                            <Paragraph>  Population: {this.state.countryPopulation} </Paragraph>
+                           <Paragraph> Time Zone: </Paragraph>
+                           { this.state.countryTimezone.map( element => {
+                               return (
+                               <Paragraph as='span' key={element}>   {element};  </Paragraph>
+                               )
+                           })}
+                           </CountryDetailsWrapper>
+
                         </CountryWrapper>
                     ) }
 

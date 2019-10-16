@@ -1,11 +1,21 @@
 import React from 'react';
 import Homepage from './components/Homepage';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
+import main_bg from './img/main_bg.jpg';
 
 const GlobalStyle = createGlobalStyle`
   body {
-   background-image: linear-gradient(to right top, #f6f6f6, #e2eeff, #b6ecff, #74ecff, #12ebe9);
+   background-image: url(${main_bg});
+       background-position: center;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+  };
+  
+  span {
+  color: whitesmoke;
   }
 `;
 
