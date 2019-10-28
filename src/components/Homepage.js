@@ -4,6 +4,7 @@ import countriesJSON from './countries.json';
 
 const Container = styled.div`
      max-width: 1200px;
+     margin: 0 auto;
     `;
 
 const Wrapper = styled.div`
@@ -21,7 +22,7 @@ const Button = styled.button`
   height: 5vh;
   width: 20vw;
   border: 2px solid orange;
-  color: ${props => (props.primary ? 'palevioletred' : 'blue')};
+  color: ${props => (props.primary ? 'slategrey' : 'blue')};
   margin: 0 1em;
   padding: 0.25em 1em;
   
@@ -31,7 +32,7 @@ const Button = styled.button`
 `;
 
 const Text = styled.h1`
-  font-size: calc(3vw + 10px);
+  font-size: calc(2vw + 10px);
   font-weight: bold;
   text-align: center;
   color: whitesmoke;
@@ -70,7 +71,7 @@ const CountryImgWrapper = styled.div`
      
      @media (min-width: 596px) {
     img {
-     width: 50vw;
+     width: 30vw;
     height: 30vh;
     }
     }
@@ -118,12 +119,9 @@ class Homepage extends Component {
                     countryRegion: response[0].region,
                     countryCurrency: response[0].currency,
                     countryPopulation: response[0].population,
-                    countryTimezone: response[0].timezones,
                     isCountryWrapperVisible: true
                 })
             );
-
-        console.log(this.state.countryRegion)
 
     };
 
@@ -141,7 +139,7 @@ class Homepage extends Component {
                         <CountryWrapper>
 
                             <CountryImgWrapper>
-                                <img src={this.state.countryFlag} alt='flag'/>
+                                <img src={this.state.countryFlag} alt='flag' className='img-fluid'/>
                             </CountryImgWrapper>
 
                             <CountryDetailsWrapper>
@@ -149,12 +147,7 @@ class Homepage extends Component {
                                 <Paragraph>  Capital: {this.state.countryCapital} </Paragraph>
                                 <Paragraph>  Region: {this.state.countryRegion} </Paragraph>
                                 <Paragraph>  Population: {this.state.countryPopulation} </Paragraph>
-                                <Paragraph> Time Zone: </Paragraph>
-                                { this.state.countryTimezone.map( element => {
-                                    return (
-                                        <Paragraph as='span' key={element}>   {element};  </Paragraph>
-                                    )
-                                })}
+
                             </CountryDetailsWrapper>
 
                         </CountryWrapper>
